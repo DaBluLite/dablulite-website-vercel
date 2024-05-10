@@ -1,7 +1,6 @@
 import adapter from '@sveltejs/adapter-vercel';
-import { Config } from '@sveltejs/kit';
 
-const config: Config = {
+const config = {
 	kit: {
 		adapter: adapter()
 	}
