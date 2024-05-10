@@ -34,7 +34,7 @@
 
 <div class="profile-wrapper">
     <div class="profile-details-container" style="max-width: 1000px;">
-        <h1>CSS Snippets</h1>
+        <h1 style="margin-bottom: 0;">CSS Snippets</h1>
         <span>A repo with all of my CSS snippets for Discord, Vesktop and BetterDiscord.</span>
         <div style="display: flex; gap: 8px;">
             <a class="button" href="https://github.com/DaBluLite/css-snippets/" target="__blank"
