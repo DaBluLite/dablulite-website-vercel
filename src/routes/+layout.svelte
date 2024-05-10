@@ -1,11 +1,13 @@
 <script>
 
 	import { page } from "$app/stores";
-	import { writable } from "svelte/store";
+	import { inject } from '@vercel/analytics'
 	import NumberInput from "./NumberInput.svelte";
 	import ColorPicker from 'svelte-awesome-color-picker';
 	import TextInput from "./TextInput.svelte";
 	import { showCyanStudio } from "./main";
+
+	inject();
 
 	let cyanStudioTab = "settings";
 
@@ -51,6 +53,7 @@
 	<a href="/nexusremastered" class={$page.url.pathname.startsWith("/nexusremastered") ? "active":""}>Nexus Remastered</a>
 	<a href="/projectcolorway" class={$page.url.pathname.startsWith("/projectcolorway") ? "active":""}>Project Colorway</a>
 	<a href="/csssnippets" class={$page.url.pathname.startsWith("/csssnippets") ? "active":""}>CSS Snippets</a>
+	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<div on:click={() => showCyanStudio.set(true)}>Cyan Studio</div>
 </div>
 <div class="main">
@@ -109,6 +112,7 @@
 		</div>
 		{/if}
 	</div>
+	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<div class="cyan-studio-tabs">
 		<div class="cyan-studio-tab" id="cyan-studio_close" on:click={() => showCyanStudio.set(false)}>
 			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
