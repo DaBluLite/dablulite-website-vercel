@@ -4,10 +4,11 @@
     export let value;
     export let min;
     export let max;
+    export let step;
 </script>
 
 <h4 style="margin: 0">{title}:</h4>
-<input type="number" class="text-input" on:input={onInput}  value={value?.toString()} min={min} max={max}/>
+<input type="number" class="text-input" on:input={onInput}  value={value?.toString()} min={min} max={max} step={step}/>
 
 <style lang="scss">
     .text-input {

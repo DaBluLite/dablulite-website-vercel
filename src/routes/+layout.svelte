@@ -24,6 +24,8 @@
     let radiusSmall = "8px";
     let radiusXS = "4px";
 
+	let darkBgBrightness = 0.7
+
 	function generateCSS(full = false) {
 		return `${full ? `@import url("https://dablulite.github.io/Cyan/import.css");
 :root {
@@ -34,8 +36,6 @@
     --cyan-loading-header: "Polishing surfaces...";` : ":root {"}
     --cyan-background-img: url("${backImg}");
     --cyan-accent-color: ${accentColor};
-    --cyan-background-primary: ${primary};
-    --cyan-second-layer: ${secondLayerColor};
     --cyan-radius-interface: ${radiusInterface};
     --cyan-radius-large: ${radiusLarge};
     --cyan-radius-medium: ${radiusMedium};
@@ -43,6 +43,12 @@
     --cyan-radius-xs: ${radiusXS};
     --cyan-radius-xl: ${radiusXL};
     --cyan-radius-round-interface: ${radiusRoundInterface};
+}
+.theme-dark,
+.theme-dark .theme-light {
+	--cyan-background-primary: ${primary};
+    --cyan-second-layer: ${secondLayerColor};
+	--cyan-bg-brightness: ${darkBgBrightness};
 }`;
 	}
 
@@ -91,6 +97,20 @@
                 document.body.style.setProperty('--cyan-background-img', "url(\""+ e.currentTarget.value +"\")");
                 backImg = e.currentTarget.value
             }}/>
+			<!-- svelte-ignore a11y-click-events-have-key-events -->
+			<div style="display: flex; gap: 8px;">
+				<div class="button" on:click={() => {
+					document.body.style.setProperty('--cyan-background-img', 'url("https://dablulite.github.io/Cyan/cyan-waves.png")');
+                	backImg = "https://dablulite.github.io/Cyan/cyan-waves.png"
+				}}>Use Cyan's BG</div>
+				<div class="button" on:click={() => {
+					document.body.style.setProperty('--cyan-background-img', 'url("https://dablulite.github.io/b2e7544e927e0a5d7b1b.jpg")');
+                	backImg = "https://dablulite.github.io/b2e7544e927e0a5d7b1b.jpg"
+				}}>Use Website's's BG</div>
+			</div>
+			<NumberInput step={0.1} min={0} max={1} title="Dark Mode Background Brightness" value={darkBgBrightness} onInput={(e) => {
+                darkBgBrightness = e.currentTarget.value
+            }}/>
             <ColorPicker bind:rgb={boundAccent} label="Accent Color" --cp-border-color="#fff" on:input={(e) => {
                 document.body.style.setProperty('--cyan-accent-color', e.detail.hex);
                 accentColor = e.detail.hex
@@ -103,31 +123,31 @@
                 document.body.style.setProperty('--cyan-second-layer', `hsl(${e.detail.hsv.h}deg, ${e.detail.hsv.s}%, ${e.detail.hsv.v}%, ${e.detail.hsv.a})`);
                 secondLayerColor = `hsl(${e.detail.hsv.h}deg, ${e.detail.hsv.s}%, ${e.detail.hsv.v}%, ${e.detail.hsv.a})`
             }}/>
-            <NumberInput min={0} max={undefined} title="Interface Corner Radius" value={Number(radiusInterface.split("px")[0])} onInput={(e) => {
+            <NumberInput step={1} min={0} max={undefined} title="Interface Corner Radius" value={Number(radiusInterface.split("px")[0])} onInput={(e) => {
                 document.body.style.setProperty('--cyan-radius-interface', `${e.currentTarget.value}px`);
                 radiusInterface = `${e.currentTarget.value}px`
             }}/>
-            <NumberInput min={0} max={undefined} title="Large Corner Radius" value={Number(radiusLarge.split("px")[0])} onInput={(e) => {
+            <NumberInput step={1} min={0} max={undefined} title="Large Corner Radius" value={Number(radiusLarge.split("px")[0])} onInput={(e) => {
                 document.body.style.setProperty('--cyan-radius-large', `${e.currentTarget.value}px`);
                 radiusLarge = `${e.currentTarget.value}px`
             }}/>
-            <NumberInput min={0} max={undefined} title="Medium Corner Radius" value={Number(radiusMedium.split("px")[0])} onInput={(e) => {
+            <NumberInput step={1} min={0} max={undefined} title="Medium Corner Radius" value={Number(radiusMedium.split("px")[0])} onInput={(e) => {
                 document.body.style.setProperty('--cyan-radius-medium', `${e.currentTarget.value}px`);
                 radiusMedium = `${e.currentTarget.value}px`
             }}/>
-            <NumberInput min={0} max={undefined} title="Small Corner Radius" value={Number(radiusSmall.split("px")[0])} onInput={(e) => {
+            <NumberInput step={1} min={0} max={undefined} title="Small Corner Radius" value={Number(radiusSmall.split("px")[0])} onInput={(e) => {
                 document.body.style.setProperty('--cyan-radius-small', `${e.currentTarget.value}px`);
                 radiusSmall = `${e.currentTarget.value}px`
             }}/>
-            <NumberInput min={0} max={undefined} title="XS Corner Radius" value={Number(radiusXS.split("px")[0])} onInput={(e) => {
+            <NumberInput step={1} min={0} max={undefined} title="XS Corner Radius" value={Number(radiusXS.split("px")[0])} onInput={(e) => {
                 document.body.style.setProperty('--cyan-radius-xs', `${e.currentTarget.value}px`);
                 radiusXS = `${e.currentTarget.value}px`
             }}/>
-            <NumberInput min={0} max={undefined} title="XL Corner Radius" value={Number(radiusXL.split("px")[0])} onInput={(e) => {
+            <NumberInput step={1} min={0} max={undefined} title="XL Corner Radius" value={Number(radiusXL.split("px")[0])} onInput={(e) => {
                 document.body.style.setProperty('--cyan-radius-xl', `${e.currentTarget.value}px`);
                 radiusXL = `${e.currentTarget.value}px`
             }}/>
-            <NumberInput min={0} max={undefined} title="Round Interface Corner Radius" value={Number(radiusRoundInterface.split("px")[0])} onInput={(e) => {
+            <NumberInput step={1} min={0} max={undefined} title="Round Interface Corner Radius" value={Number(radiusRoundInterface.split("px")[0])} onInput={(e) => {
                 document.body.style.setProperty('--cyan-radius-round-interface', `${e.currentTarget.value}px`);
                 radiusRoundInterface = `${e.currentTarget.value}px`
             }}/>
