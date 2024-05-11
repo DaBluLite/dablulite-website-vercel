@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 
 	import { page } from "$app/stores";
 	import { inject } from '@vercel/analytics'
@@ -23,6 +23,28 @@
     let radiusMedium = "12px";
     let radiusSmall = "8px";
     let radiusXS = "4px";
+
+	function generateCSS(full = false) {
+		return `${full ? `@import url("https://dablulite.github.io/Cyan/import.css");
+:root {
+	--cyan-interface-shadow: 0 4px 10px 0 rgb(0 0 0 / 60%);
+	--cyan-font: 'Montserrat', 'Open Sans';
+	--cyan-blur: 48px;
+    --cyan-channelbar-width: 320px;
+    --cyan-loading-header: "Polishing surfaces...";` : ":root {"}
+    --cyan-background-img: url("${backImg}");
+    --cyan-accent-color: ${accentColor};
+    --cyan-background-primary: ${primary};
+    --cyan-second-layer: ${secondLayerColor};
+    --cyan-radius-interface: ${radiusInterface};
+    --cyan-radius-large: ${radiusLarge};
+    --cyan-radius-medium: ${radiusMedium};
+    --cyan-radius-small: ${radiusSmall};
+    --cyan-radius-xs: ${radiusXS};
+    --cyan-radius-xl: ${radiusXL};
+    --cyan-radius-round-interface: ${radiusRoundInterface};
+}`;
+	}
 
 
 	let boundAccent = {
@@ -109,6 +131,27 @@
                 document.body.style.setProperty('--cyan-radius-round-interface', `${e.currentTarget.value}px`);
                 radiusRoundInterface = `${e.currentTarget.value}px`
             }}/>
+		</div>
+		{/if}
+		{#if cyanStudioTab === "export"}
+		<div class="cyan-studio-page">
+			<h2 style="margin: 16px; margin-bottom: 0; margin-left: 0;">Export as:</h2>
+			<!-- svelte-ignore a11y-click-events-have-key-events -->
+			<div
+				class="button"
+				on:click={() => {
+					navigator.clipboard.writeText(generateCSS());
+				}}
+			>
+				Custom CSS/QuickCSS
+			</div>
+			<a
+				class="button"
+				href={"data:text/plain;charset=utf-8," + encodeURIComponent(generateCSS(true))}
+				download="Cyan.theme.css"
+			>
+				Full Theme
+			</a>
 		</div>
 		{/if}
 	</div>

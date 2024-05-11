@@ -34,13 +34,8 @@
 
 <div class="profile-wrapper">
     <div class="profile-details-container" style="max-width: 1000px;">
-        <h1 style="margin-bottom: 0;">CSS Snippets</h1>
+        <h1 style="margin-bottom: 0;"><a href="https://github.com/DaBluLite/css-snippets/" class="white-anchor" target="__blank">CSS Snippets</a></h1>
         <span>A repo with all of my CSS snippets for Discord, Vesktop and BetterDiscord.</span>
-        <div style="display: flex; gap: 8px;">
-            <a class="button" href="https://github.com/DaBluLite/css-snippets/" target="__blank"
-                >Open Repository</a
-            >
-        </div>
     </div>
 </div>
 <div class="css-snippet-container">
@@ -62,7 +57,7 @@
     .css-snippet-container {
         display: flex;
         flex-direction: column;
-        height: 70%;
+        height: 80%;
         overflow: hidden auto;
         &::-webkit-scrollbar {
 			width: 5px;
@@ -85,7 +80,7 @@
     }
     .profile-wrapper {
     width: 100%;
-    height: 30%;
+    height: 20%;
     display: flex;
     justify-content: center;
 }
