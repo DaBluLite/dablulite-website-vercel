@@ -12,5 +12,11 @@ export const _sources = {
 }
 
 export function GET() {
-	return json(_sources);
+	return json(_sources, {
+        headers: {
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': '*',
+          }
+    });
 }
