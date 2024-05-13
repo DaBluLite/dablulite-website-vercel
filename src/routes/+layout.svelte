@@ -10,19 +10,18 @@
 	inject();
 
 	let cyanStudioTab = "settings";
-
 	let backImg = "https://dablulite.github.io/b2e7544e927e0a5d7b1b.jpg";
     let accentColor = "#009f88";
     let secondLayerColor = "rgb(0 0 0/60%)";
     let primary = "rgb(0 0 0/60%)";
 
-    let radiusRoundInterface = "50px";
-    let radiusInterface = "24px";
-    let radiusXL = "20px";
-    let radiusLarge = "16px";
-    let radiusMedium = "12px";
-    let radiusSmall = "8px";
-    let radiusXS = "4px";
+    let radiusRoundInterface = 50;
+    let radiusInterface = 24;
+    let radiusXL = 20;
+    let radiusLarge = 16;
+    let radiusMedium = 12;
+    let radiusSmall = 8;
+    let radiusXS = 4;
 
 	let darkBgBrightness = 0.7
 
@@ -36,13 +35,13 @@
     --cyan-loading-header: "Polishing surfaces...";` : ":root {"}
     --cyan-background-img: url("${backImg}");
     --cyan-accent-color: ${accentColor};
-    --cyan-radius-interface: ${radiusInterface};
-    --cyan-radius-large: ${radiusLarge};
-    --cyan-radius-medium: ${radiusMedium};
-    --cyan-radius-small: ${radiusSmall};
-    --cyan-radius-xs: ${radiusXS};
-    --cyan-radius-xl: ${radiusXL};
-    --cyan-radius-round-interface: ${radiusRoundInterface};
+    --cyan-radius-interface: ${radiusInterface}px;
+    --cyan-radius-large: ${radiusLarge}px;
+    --cyan-radius-medium: ${radiusMedium}px;
+    --cyan-radius-small: ${radiusSmall}px;
+    --cyan-radius-xs: ${radiusXS}px;
+    --cyan-radius-xl: ${radiusXL}px;
+    --cyan-radius-round-interface: ${radiusRoundInterface}px;
 }
 .theme-dark,
 .theme-dark .theme-light {
@@ -82,6 +81,7 @@
 	<a href="/projectcolorway" class={$page.url.pathname.startsWith("/projectcolorway") ? "active":""}>Project Colorway</a>
 	<a href="/csssnippets" class={$page.url.pathname.startsWith("/csssnippets") ? "active":""}>CSS Snippets</a>
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
+	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div on:click={() => showCyanStudio.set(true)}>Cyan Studio</div>
 </div>
 <div class="main">
@@ -93,11 +93,9 @@
 		{#if cyanStudioTab === "settings"}
 		<div class="cyan-studio-page">
 			<h2 style="margin: 16px; margin-bottom: 0; margin-left: 0;">Settings</h2>
-			<TextInput title="Background Image" placeholder="Enter a valid image URL..." value={backImg} onInput={(e) => {
-                document.body.style.setProperty('--cyan-background-img', "url(\""+ e.currentTarget.value +"\")");
-                backImg = e.currentTarget.value
-            }}/>
+			<TextInput title="Background Image" placeholder="Enter a valid image URL..." bind:value={backImg} onInput={() => document.body.style.setProperty('--cyan-background-img', 'url("' + backImg + '")')}/>
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
+			<!-- svelte-ignore a11y-no-static-element-interactions -->
 			<div style="display: flex; gap: 8px;">
 				<div class="button" on:click={() => {
 					document.body.style.setProperty('--cyan-background-img', 'url("https://dablulite.github.io/Cyan/cyan-waves.png")');
@@ -108,9 +106,7 @@
                 	backImg = "https://dablulite.github.io/b2e7544e927e0a5d7b1b.jpg"
 				}}>Use Website's's BG</div>
 			</div>
-			<NumberInput step={0.1} min={0} max={1} title="Dark Mode Background Brightness" value={darkBgBrightness} onInput={(e) => {
-                darkBgBrightness = e.currentTarget.value
-            }}/>
+			<NumberInput step={0.1} min={0} max={1} title="Dark Mode Background Brightness" bind:value={darkBgBrightness} onInput={() => {}}/>
             <ColorPicker bind:rgb={boundAccent} label="Accent Color" --cp-border-color="#fff" on:input={(e) => {
                 document.body.style.setProperty('--cyan-accent-color', e.detail.hex);
                 accentColor = e.detail.hex
@@ -123,33 +119,26 @@
                 document.body.style.setProperty('--cyan-second-layer', `hsl(${e.detail.hsv.h}deg, ${e.detail.hsv.s}%, ${e.detail.hsv.v}%, ${e.detail.hsv.a})`);
                 secondLayerColor = `hsl(${e.detail.hsv.h}deg, ${e.detail.hsv.s}%, ${e.detail.hsv.v}%, ${e.detail.hsv.a})`
             }}/>
-            <NumberInput step={1} min={0} max={undefined} title="Interface Corner Radius" value={Number(radiusInterface.split("px")[0])} onInput={(e) => {
-                document.body.style.setProperty('--cyan-radius-interface', `${e.currentTarget.value}px`);
-                radiusInterface = `${e.currentTarget.value}px`
+            <NumberInput step={1} min={0} max={undefined} title="Interface Corner Radius" bind:value={radiusInterface} onInput={() => {
+                document.body.style.setProperty('--cyan-radius-interface', `${radiusInterface}px`);
             }}/>
-            <NumberInput step={1} min={0} max={undefined} title="Large Corner Radius" value={Number(radiusLarge.split("px")[0])} onInput={(e) => {
-                document.body.style.setProperty('--cyan-radius-large', `${e.currentTarget.value}px`);
-                radiusLarge = `${e.currentTarget.value}px`
+            <NumberInput step={1} min={0} max={undefined} title="Large Corner Radius" bind:value={radiusLarge} onInput={() => {
+                document.body.style.setProperty('--cyan-radius-large', `${radiusLarge}px`);
             }}/>
-            <NumberInput step={1} min={0} max={undefined} title="Medium Corner Radius" value={Number(radiusMedium.split("px")[0])} onInput={(e) => {
-                document.body.style.setProperty('--cyan-radius-medium', `${e.currentTarget.value}px`);
-                radiusMedium = `${e.currentTarget.value}px`
+            <NumberInput step={1} min={0} max={undefined} title="Medium Corner Radius" bind:value={radiusMedium} onInput={() => {
+                document.body.style.setProperty('--cyan-radius-medium', `${radiusMedium}px`);
             }}/>
-            <NumberInput step={1} min={0} max={undefined} title="Small Corner Radius" value={Number(radiusSmall.split("px")[0])} onInput={(e) => {
-                document.body.style.setProperty('--cyan-radius-small', `${e.currentTarget.value}px`);
-                radiusSmall = `${e.currentTarget.value}px`
+            <NumberInput step={1} min={0} max={undefined} title="Small Corner Radius" bind:value={radiusSmall} onInput={() => {
+                document.body.style.setProperty('--cyan-radius-small', `${radiusSmall}px`);
             }}/>
-            <NumberInput step={1} min={0} max={undefined} title="XS Corner Radius" value={Number(radiusXS.split("px")[0])} onInput={(e) => {
-                document.body.style.setProperty('--cyan-radius-xs', `${e.currentTarget.value}px`);
-                radiusXS = `${e.currentTarget.value}px`
+            <NumberInput step={1} min={0} max={undefined} title="XS Corner Radius" bind:value={radiusXS} onInput={() => {
+                document.body.style.setProperty('--cyan-radius-xs', `${radiusXS}px`);
             }}/>
-            <NumberInput step={1} min={0} max={undefined} title="XL Corner Radius" value={Number(radiusXL.split("px")[0])} onInput={(e) => {
-                document.body.style.setProperty('--cyan-radius-xl', `${e.currentTarget.value}px`);
-                radiusXL = `${e.currentTarget.value}px`
+            <NumberInput step={1} min={0} max={undefined} title="XL Corner Radius" bind:value={radiusXL} onInput={() => {
+                document.body.style.setProperty('--cyan-radius-xl', `${radiusXL}px`);
             }}/>
-            <NumberInput step={1} min={0} max={undefined} title="Round Interface Corner Radius" value={Number(radiusRoundInterface.split("px")[0])} onInput={(e) => {
-                document.body.style.setProperty('--cyan-radius-round-interface', `${e.currentTarget.value}px`);
-                radiusRoundInterface = `${e.currentTarget.value}px`
+            <NumberInput step={1} min={0} max={undefined} title="Round Interface Corner Radius" bind:value={radiusRoundInterface} onInput={(e) => {
+                document.body.style.setProperty('--cyan-radius-round-interface', `${radiusRoundInterface}px`);
             }}/>
 		</div>
 		{/if}
@@ -157,6 +146,7 @@
 		<div class="cyan-studio-page">
 			<h2 style="margin: 16px; margin-bottom: 0; margin-left: 0;">Export as:</h2>
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
+			<!-- svelte-ignore a11y-no-static-element-interactions -->
 			<div
 				class="button"
 				on:click={() => {
@@ -176,6 +166,7 @@
 		{/if}
 	</div>
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
+	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div class="cyan-studio-tabs">
 		<div class="cyan-studio-tab" id="cyan-studio_close" on:click={() => showCyanStudio.set(false)}>
 			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">

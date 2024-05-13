@@ -16,8 +16,18 @@
                 <a href="https://github.com/DaBluLite/DiscordColorways" class="white-anchor">Discord Colorways</a>: Simple color schemes/themes for Discord, meant to expand the functionality of the built in light and dark themes, by offering more simple color choices, that aren't locked behind Nitro
             </div>
         </div>
+        <h3 style="margin-bottom: 0;">Useful Links:</h3>
+        <div class="project-list">
+            <div class="project">
+                <a href="/projectcolorway/sources" class="white-anchor">Colorway Sources</a>: A list with all of the available online colorway sources
+            </div>
+        </div>
         <h3 style="margin-bottom: 0;">How you can contribute:</h3>
-        <span>Make colorways. Really, that is all it takes for you to support this project. Make colorways, upload them and share them. The goal of this porject is neither to spread my name nor this project's name. The goal is to create a universal way of theming apps in an easy and accessible manner.</span>
+        <ul>
+            <li>Make colorways. Really, that is all it takes for you to support this project. Make colorways, upload them and share them. The goal of this porject is neither to spread my name nor this project's name. The goal is to create a universal way of theming apps in an easy and accessible manner.</li>
+            <li>Use the tools provided by instances of Project Colorway. As of DiscordColorways v5.7.0 Beta 1, creation of colorways and publishing of colorway sources is possible from inside the plugin itself.</li>
+            <li>Support for online Project Colorway features is planned for GitHub Desktop as well...</li>
+        </ul>
     </div>
 </div>
 
@@ -43,5 +53,8 @@
     gap: 8px;
     display: flex;
     animation: animleft .4s ease;
+}
+li {
+    margin-bottom: 8px;
 }
 </style>

@@ -47,6 +47,7 @@
         </div>
         <div style="display: flex; gap: 8px;">
             <!-- svelte-ignore a11y-click-events-have-key-events -->
+            <!-- svelte-ignore a11y-no-static-element-interactions -->
             <div on:click={() => navigator.clipboard.writeText(snippet.import)} class="button">Copy CSS</div>
         </div>
     </div>

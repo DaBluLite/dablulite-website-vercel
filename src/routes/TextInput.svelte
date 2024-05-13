@@ -1,9 +1,9 @@
 <script lang="ts">
-    export let title, placeholder = "Enter text...", onInput, value
+    export let title: string, placeholder: string = "Enter text...", value: string, onInput: (e) => void
 </script>
 
-<h4 style="margin: 0;">{title}:</h4>
-<input type="text" class="text-input" placeholder={placeholder} on:input={onInput}  value={value}/>
+<h4 style="margin-bottom: 0;">{title}:</h4>
+<input type="text" class="text-input" placeholder={placeholder}  bind:value={value} on:input={onInput}/>
 
 <style lang="scss">
     .text-input {
