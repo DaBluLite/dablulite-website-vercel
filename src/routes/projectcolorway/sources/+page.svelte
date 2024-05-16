@@ -14,6 +14,7 @@
     <div style="display: flex; gap: .5rem; flex-direction: column;">
         <b>{source.name}</b>
         <span>{source.description}</span>
+        <a class="white-anchor" href={"https://github.com/" + source.authorGh} target="_blank">by {source.authorGh}</a>
     </div>
     <div style="display: flex; gap: 8px;">
         <!-- svelte-ignore a11y-click-events-have-key-events -->
