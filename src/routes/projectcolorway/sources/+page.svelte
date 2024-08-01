@@ -2,6 +2,10 @@
     import { _sources } from "../../+server";
 </script>
 
+<svelte:head>
+    <title>Third-Party Sources | DaBluLite</title>
+</svelte:head>
+
 <div class="profile-wrapper">
     <div class="profile-details-container" style="max-width: 1000px;">
         <h1 style="margin-bottom: 0;">Project Colorway Sources</h1>
@@ -30,6 +34,10 @@
         display: flex;
         flex-direction: column;
         height: 80%;
+        max-width: 1000px;
+        padding: 0 12px;
+        gap: 12px;
+        margin: 0 auto;
         overflow: hidden auto;
         &::-webkit-scrollbar {
 			width: 5px;
@@ -43,7 +51,9 @@
     .css-snippet {
         display: flex;
         justify-content: space-between;
-    background: linear-gradient(rgba(0, 0, 0, 0.6235294118), rgba(0, 0, 0, 0.3333333333));
+    background: var(--cyan-second-layer);
+    box-shadow: var(--cyan-interface-shadow);
+    border-radius: var(--cyan-radius-large);
     color: #fff;
     padding: 24px;
     width: 100%;

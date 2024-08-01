@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "vite dev",
+    "dev:host": "vite --host",
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
@@ -34,11 +35,14 @@
   },
   "type": "module",
   "dependencies": {
+    "@auth/core": "^0.34.1",
+    "@auth/sveltekit": "latest",
     "@sveltejs/vite-plugin-svelte": "^3.1.0",
     "@vercel/analytics": "^1.2.2",
+    "bootstrap-icons": "^1.11.3",
     "btoa": "^1.2.1",
-    "cookie": "^0.6.0",
     "svelte-awesome-color-picker": "^3.0.6",
+    "svelte-component-to-image": "^0.1.0",
     "vanilla-picker": "^2.12.3"
   }
 }

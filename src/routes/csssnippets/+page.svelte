@@ -41,25 +41,23 @@
 <div class="css-snippet-container">
     {#each csssnippets as snippet}
     <div class="css-snippet">
-        <div style="display: flex; gap: .5rem; flex-direction: column;">
-            <b>{snippet.name}</b>
-            <span>{snippet.description}</span>
-        </div>
-        <div style="display: flex; gap: 8px;">
-            <!-- svelte-ignore a11y-click-events-have-key-events -->
-            <!-- svelte-ignore a11y-no-static-element-interactions -->
-            <div on:click={() => navigator.clipboard.writeText(snippet.import)} class="button">Copy CSS</div>
-        </div>
+        <b>{snippet.name}</b>
+        <span>{snippet.description}</span>
+        <div on:click={() => navigator.clipboard.writeText(snippet.import)} class="button">Copy CSS</div>
     </div>
 {/each}
 </div>
 
 <style lang="scss">
     .css-snippet-container {
-        display: flex;
-        flex-direction: column;
-        height: 80%;
+        display: block;
         overflow: hidden auto;
+        max-width: 1000px;
+        columns: 4;
+        gap: 12px;
+        padding: 0 12px;
+        padding-bottom: 12px;
+        margin: 0 auto;
         &::-webkit-scrollbar {
 			width: 5px;
     		height: 8px;
@@ -71,13 +69,25 @@
     }
     .css-snippet {
         display: flex;
-        justify-content: space-between;
-    background: linear-gradient(rgba(0, 0, 0, 0.6235294118), rgba(0, 0, 0, 0.3333333333));
+        flex-direction: column;
+    background: var(--cyan-second-layer);
     color: #fff;
-    padding: 24px;
+    padding: 16px;
     width: 100%;
+    height: auto;
     box-sizing: border-box;
-    align-items: center;
+    gap: 16px;
+    break-inside: avoid;
+    margin-bottom: 12px;
+    border-radius: var(--cyan-radius-large);
+    box-shadow: var(--cyan-interface-shadow);
+    &> b {
+        margin: 8px;
+        margin-bottom: 0;
+    }
+    &> span {
+        margin: 0 8px;
+    }
     }
     .profile-wrapper {
     width: 100%;

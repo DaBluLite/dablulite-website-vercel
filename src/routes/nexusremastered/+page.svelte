@@ -8,7 +8,9 @@
             <a class="button" href="https://github.com/DaBluLite/NexusRemastered/" target="__blank">Open Repository</a>
         </div>
     </div>
-    <img src={Main} class="project-screenshot" alt="Main Cyan Interface" />
+    <div class="imgcontainer">
+        <img src={Main} class="project-screenshot" alt="Main Cyan Interface" />
+    </div>
 </div>
 
 <style lang="scss">
@@ -22,11 +24,18 @@
     height: 100%;
     align-items: center;
 }
-.project-screenshot {
-    object-fit: contain;
-    overflow: overlay;
-    width: 300%;
-    border-radius: var(--cyan-radius-small);
-    box-shadow: var(--cyan-interface-shadow);
+.imgcontainer {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &> .project-screenshot {
+        object-fit: contain;
+        overflow: overlay;
+        width: auto;
+        border-radius: var(--cyan-radius-small);
+        box-shadow: var(--cyan-interface-shadow);
+    }
 }
 </style>

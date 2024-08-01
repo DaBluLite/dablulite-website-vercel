@@ -9,7 +9,9 @@
             Simple in the UI, efficient in the UX. Beautiful looks meet efficiency.
         </span>
     </div>
-    <img src={Main} class="feature-screenshot" alt="Main Cyan Interface" />
+    <div class="imgcontainer">
+        <img src={Main} class="feature-screenshot" alt="Main Cyan Interface" />
+    </div>
 </div>
 
 <style lang="scss">
@@ -27,12 +29,19 @@
     gap: 16px;
     width: 50%;
 }
-.feature-screenshot {
-    object-fit: contain;
-    overflow: overlay;
+.imgcontainer {
     width: 50%;
-    border-radius: var(--cyan-radius-small);
-    box-shadow: var(--cyan-interface-shadow);
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &> .feature-screenshot {
+        object-fit: contain;
+        overflow: overlay;
+        width: auto;
+        border-radius: var(--cyan-radius-small);
+        box-shadow: var(--cyan-interface-shadow);
+    }
 }
 .cyan-desc {
     font-size: 24px;

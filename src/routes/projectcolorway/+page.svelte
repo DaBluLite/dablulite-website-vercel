@@ -25,7 +25,7 @@
         <h3 style="margin-bottom: 0;">How you can contribute:</h3>
         <ul>
             <li>Make colorways. Really, that is all it takes for you to support this project. Make colorways, upload them and share them. The goal of this porject is neither to spread my name nor this project's name. The goal is to create a universal way of theming apps in an easy and accessible manner.</li>
-            <li>Use the tools provided by instances of Project Colorway. As of DiscordColorways v5.7.0 Beta 1, creation of colorways and publishing of colorway sources is possible from inside the plugin itself.</li>
+            <li>Use the tools provided by instances of Project Colorway. As of DiscordColorways v5.7.0, creation of colorways and exporting colorway sources is possible from inside the plugin itself. Submissions for colorway sources or colorways are open to anyone. Just DM me on Discord (Submissions form coming soon (?)).</li>
             <li>Support for online Project Colorway features is planned for GitHub Desktop as well...</li>
         </ul>
     </div>
