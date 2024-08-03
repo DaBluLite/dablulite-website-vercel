@@ -1,6 +1,6 @@
 import type { RequestHandler } from '@sveltejs/kit';
-import { image_from_component, type RenderOptions } from 'svelte-component-to-image'
-import Swatch from '../../protected/projectcolorway/submit/Swatch.svelte';
+import { image_from_component } from 'svelte-component-to-image'
+import Swatch from './Swatch.svelte';
 
 export const GET: RequestHandler = async ({ url }) => {
     if(!url.searchParams.get("c")) {

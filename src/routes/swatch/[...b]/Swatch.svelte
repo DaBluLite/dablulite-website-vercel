@@ -1,8 +1,8 @@
 <script lang="ts">
-	let accent = '#5865f2';
-	let second = '#2b2d31';
-	let primary = '#313338';
-	let tertiary = '#1e1f22';
+	export let accent = '#5865f2';
+	export let second = '#2b2d31';
+	export let primary = '#313338';
+	export let tertiary = '#1e1f22';
 </script>
 
 <div class="swatch">

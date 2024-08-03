@@ -5,46 +5,79 @@
 
 	import { signIn, signOut } from '@auth/sveltekit/client';
 
-	import person_circle from "bootstrap-icons/icons/person-circle.svg";
+	import person_circle from 'bootstrap-icons/icons/person-circle.svg';
 
-	import "bootstrap-icons/font/bootstrap-icons.scss";
+	import 'bootstrap-icons/font/bootstrap-icons.scss';
 	import CyanStudio from './CyanStudio.svelte';
 
 	inject();
 </script>
+
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-missing-attribute -->
 <div style="display: flex; flex-direction: column; width: 100%; height: 100%;">
 	<div class="nav">
-		<span style="margin-left: 12px; font-weight: 1000;">DaBluLite's Project Hub</span>
-		<a style="margin-left: auto;" href="/" class={$page.url.pathname === '/' ? 'active' : ''}>Home</a>
-		<a href="/cyan" class={$page.url.pathname.startsWith("/cyan") || $page.url.pathname.startsWith("/protected/cyan") ? 'active' : ''}>Cyan²</a>
-		<a href="/nexusremastered" class={$page.url.pathname.startsWith("/nexusremastered") || $page.url.pathname.startsWith("/protected/nexusremastered") ? 'active' : ''}>Nexus Remastered</a>
-		<a href="/projectcolorway" class={$page.url.pathname.startsWith('/projectcolorway') || $page.url.pathname.startsWith("/protected/projectcolorway") ? 'active' : ''}>Project Colorway</a>
-		<a href="/csssnippets" class={$page.url.pathname.startsWith('/csssnippets') ? 'active' : ''}>CSS Snippets</a>
-		<div on:click={() => showCyanStudio.set(true)}>Cyan Studio</div>
-		<div class="user_menu_container" tabindex="-1">
-		{#if Object.keys($page.data.session || {}).length}
-				<img height="43" width="43" src={$page.data.session.user.image || person_circle} />
-				<div class="user-menu">
-					<span style="color: #fff; text-wrap: nowrap; padding-top: 8px;">{$page.data.session.user.name || $page.data.session.user.email}</span>
-					<div on:click={() => signOut()} class="button">Sign Out</div>
-				</div>
-		{:else}
-				<img height="43" width="43" src={person_circle} />
-				<div class="user-menu">
-					<div on:click={() => signIn('discord')} class="button">Sign In with Discord</div>	
-				</div>
-		{/if}
-		</div>
-	</div>
-	{#if $page.url.pathname.startsWith("/cyan") || $page.url.pathname.startsWith("/protected/cyan")}
-			<div class="nav" style="justify-content: end; padding-right: 12px; width: calc(100% - 12px);">
-				<a class={$page.url.pathname == "/cyan" ? 'active' : ''} href="/cyan"
-					>About</a
-				>
-				<li class="ver-sep"/>
+		<a
+			href="/"
+			class={`back ${
+				$page.url.pathname.startsWith('/projectcolorway') ||
+				$page.url.pathname.startsWith('/protected/projectcolorway') ||
+				$page.url.pathname.startsWith('/nexusremastered') ||
+				$page.url.pathname.startsWith('/protected/nexusremastered') ||
+				$page.url.pathname.startsWith('/cyan') ||
+				$page.url.pathname.startsWith('/protected/cyan')
+					? 'visible'
+					: ''
+			}`}>&#xF12F;</a
+		>
+		<span style="font-weight: 1000;">DaBluLite's Project Hub</span>
+		<div
+			class={`navTabs ${
+				$page.url.pathname.startsWith('/projectcolorway') ||
+				$page.url.pathname.startsWith('/protected/projectcolorway') ||
+				$page.url.pathname.startsWith('/nexusremastered') ||
+				$page.url.pathname.startsWith('/protected/nexusremastered') ||
+				$page.url.pathname.startsWith('/cyan') ||
+				$page.url.pathname.startsWith('/protected/cyan')
+					? 'hidden'
+					: ''
+			}`}
+		>
+			<a href="/" class={$page.url.pathname === '/' ? 'active' : ''}>Home</a>
+			<a
+				href="/cyan"
+				class={$page.url.pathname.startsWith('/cyan') ||
+				$page.url.pathname.startsWith('/protected/cyan')
+					? 'active'
+					: ''}>Cyan²</a
+			>
+			<a
+				href="/nexusremastered"
+				class={$page.url.pathname.startsWith('/nexusremastered') ||
+				$page.url.pathname.startsWith('/protected/nexusremastered')
+					? 'active'
+					: ''}>Nexus Remastered</a
+			>
+			<a
+				href="/projectcolorway"
+				class={$page.url.pathname.startsWith('/projectcolorway') ||
+				$page.url.pathname.startsWith('/protected/projectcolorway')
+					? 'active'
+					: ''}>Project Colorway</a
+			>
+			<a href="/csssnippets" class={$page.url.pathname.startsWith('/csssnippets') ? 'active' : ''}
+				>CSS Snippets</a
+			>
+			<div
+				class={`nestedTabs ${
+					$page.url.pathname.startsWith('/cyan') || $page.url.pathname.startsWith('/protected/cyan')
+						? 'visible'
+						: ''
+				}`}
+			>
+				<a class={$page.url.pathname == '/cyan' ? 'active' : ''} href="/cyan">Cyan²</a>
+				<li class="ver-sep" />
 				<a class={$page.url.pathname.startsWith('/cyan/ui') ? 'active' : ''} href="/cyan/ui"
 					>User Experience</a
 				>
@@ -61,11 +94,16 @@
 					href="/cyan/settings">User Settings</a
 				>
 			</div>
-		{/if}
-		{#if $page.url.pathname.startsWith("/nexusremastered") || $page.url.pathname.startsWith("/protected/nexusremastered")}
-			<div class="nav" style="justify-content: end; padding-right: 12px; width: calc(100% - 12px);">
+			<div
+				class={`nestedTabs ${
+					$page.url.pathname.startsWith('/nexusremastered') ||
+					$page.url.pathname.startsWith('/protected/nexusremastered')
+						? 'visible'
+						: ''
+				}`}
+			>
 				<a href="/nexusremastered" class={$page.url.pathname == '/nexusremastered' ? 'active' : ''}
-					>About</a
+					>Nexus Remastered</a
 				>
 				<li class="ver-sep" />
 				<a
@@ -85,11 +123,16 @@
 					href="/nexusremastered/settings">User Settings</a
 				>
 			</div>
-		{/if}
-		{#if $page.url.pathname.startsWith('/projectcolorway') || $page.url.pathname.startsWith("/protected/projectcolorway")}
-			<div class="nav" style="justify-content: end; padding-right: 12px; width: calc(100% - 12px);">
+			<div
+				class={`nestedTabs ${
+					$page.url.pathname.startsWith('/projectcolorway') ||
+					$page.url.pathname.startsWith('/protected/projectcolorway')
+						? 'visible'
+						: ''
+				}`}
+			>
 				<a href="/projectcolorway" class={$page.url.pathname == '/projectcolorway' ? 'active' : ''}
-					>About</a
+					>Project Colorway</a
 				>
 				<li class="ver-sep" />
 				<a
@@ -103,13 +146,31 @@
 					>Submit Colorways</a
 				>
 			</div>
-		{/if}
+		</div>
+		<div on:click={() => showCyanStudio.set(true)}>Cyan Studio</div>
+		<div class="user_menu_container" tabindex="-1">
+			{#if Object.keys($page.data.session || {}).length}
+				<img height="43" width="43" src={$page.data.session.user.image || person_circle} />
+				<div class="user-menu">
+					<span style="color: #fff; text-wrap: nowrap; padding-top: 8px;"
+						>{$page.data.session.user.name || $page.data.session.user.email}</span
+					>
+					<div on:click={() => signOut()} class="button">Sign Out</div>
+				</div>
+			{:else}
+				<img height="43" width="43" src={person_circle} />
+				<div class="user-menu">
+					<div on:click={() => signIn('discord')} class="button">Sign In with Discord</div>
+				</div>
+			{/if}
+		</div>
+	</div>
 	<div class="main">
 		<slot />
 	</div>
 </div>
 {#if $showCyanStudio === true}
-	<CyanStudio/>
+	<CyanStudio />
 {/if}
 
 <style lang="scss">
@@ -218,43 +279,89 @@
 	}
 	.nav {
 		height: 59px;
-		width: 100%;
+		width: calc(100% - 12px);
+		padding-left: 12px;
 		display: flex;
 		justify-content: start;
 		gap: 8px;
 		align-items: center;
 		flex: 0 0 auto;
 		color: #000;
-		& .button {
-		border-radius: var(--cyan-radius-medium);
-		height: fit-content;
-		background-color: var(--cyan-second-layer);
-		color: #fff;
-		display: flex;
-		gap: 8px;
-		align-items: center;
-		transition: 0.2s ease;
-		padding: 2px 16px;
-		height: 32px;
-		min-height: 32px;
-		text-decoration: none;
-		border: none;
-		font-size: 14px;
-		font-weight: 500;
-		line-height: 16px;
-		cursor: pointer;
-		justify-content: center;
-		text-wrap: nowrap;
-		&:hover {
-			box-shadow: var(--cyan-interface-shadow);
+		& > .back {
+			font-family: bootstrap-icons;
+			display: none;
+			font-size: 24px;
+			&.visible {
+				display: flex;
+			}
 		}
-	}
+		& > .navTabs {
+			height: 59px;
+			display: flex;
+			justify-content: start;
+			gap: 8px;
+			align-items: center;
+			margin-left: auto;
+			position: relative;
+			transition: 0.4s ease;
+			&.hidden > a {
+				transform: translateX(-20px);
+				opacity: 0;
+				pointer-events: none;
+			}
+			& > .nestedTabs {
+				height: 59px;
+				display: flex;
+				justify-content: start;
+				gap: 8px;
+				align-items: center;
+				margin-left: auto;
+				position: absolute;
+				width: max-content;
+				top: 0;
+				right: 0;
+				transition: 0.4s ease;
+				transform: translateX(20px);
+				pointer-events: none;
+				opacity: 0;
+				&.visible {
+					opacity: 1;
+					transform: translateX(0);
+					pointer-events: all;
+				}
+			}
+		}
+		& .button {
+			border-radius: var(--cyan-radius-medium);
+			height: fit-content;
+			background-color: var(--cyan-second-layer);
+			color: #fff;
+			display: flex;
+			gap: 8px;
+			align-items: center;
+			transition: 0.2s ease;
+			padding: 2px 16px;
+			height: 32px;
+			min-height: 32px;
+			text-decoration: none;
+			border: none;
+			font-size: 14px;
+			font-weight: 500;
+			line-height: 16px;
+			cursor: pointer;
+			justify-content: center;
+			text-wrap: nowrap;
+			&:hover {
+				box-shadow: var(--cyan-interface-shadow);
+			}
+		}
 		& img {
 			border-radius: 50%;
 			background-color: #fff;
 		}
 		& a,
 		& div {
+			transition: 0.4s ease;
 			height: 43px;
 			padding: 8px;
 			display: flex;
@@ -277,7 +384,7 @@
 				animation: animatetabindicatorBottom 0.4s ease;
 			}
 		}
-		&> span {
+		& > span {
 			height: 43px;
 			padding: 8px;
 			display: flex;
@@ -309,8 +416,8 @@
 		border-radius: var(--cyan-radius-medium);
 		height: fit-content;
 		background-color: var(--cyan-second-layer);
-		color: #fff;
-		display: flex;
+		color: #fff !important;
+		display: flex !important;
 		gap: 8px;
 		align-items: center;
 		transition: 0.2s ease;
@@ -318,11 +425,12 @@
 		height: 32px;
 		text-decoration: none;
 		border: none;
-		font-size: 14px;
-		font-weight: 500;
-		line-height: 16px;
+		font-size: 14px !important;
+		font-weight: 500 !important;
+		line-height: 16px !important;
 		cursor: pointer;
 		justify-content: center;
+		font-family: 'Comfortaa', sans-serif;
 		&:hover {
 			box-shadow: var(--cyan-interface-shadow);
 		}
@@ -351,7 +459,7 @@
 		position: relative;
 		cursor: default;
 		z-index: +2;
-		&> .user-menu {
+		& > .user-menu {
 			position: absolute;
 			top: 55px;
 			right: 12px;
@@ -368,7 +476,7 @@
 			box-shadow: var(--cyan-interface-shadow);
 			transform: translateY(-20px);
 			opacity: 0;
-			transition: .3s ease;
+			transition: 0.3s ease;
 			height: fit-content;
 			pointer-events: none;
 		}

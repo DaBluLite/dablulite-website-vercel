@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { page } from '$app/stores';
 	import TextInput from '../../../TextInput.svelte';
 	import ColorPicker from 'svelte-awesome-color-picker';
 
@@ -14,6 +13,7 @@
 	let boundSecond = '#2b2d31';
 	let boundPrimary = '#313338';
 	let boundTertiary = '#1e1f22';
+    let filename = "";
 
 	function reset() {
 		colorwayName = '';
@@ -23,6 +23,7 @@
 		boundSecond = '#2b2d31';
 		boundPrimary = '#313338';
 		boundTertiary = '#1e1f22';
+        filename = ""
 	}
 
 	function reset_colorway() {
@@ -68,15 +69,15 @@
 				<TextInput
 					title="Colorway Name"
 					name="colorway-name"
-					value={colorwayName}
-					onInput={(e) => (colorwayName = e.value)}
+					bind:value={colorwayName}
 					placeholder="Give your colorway a name"
+					required
 				/>
 				<h3 style="margin: 0;">Colors</h3>
 				<div style="display: flex; gap: .75rem;">
 					<ColorPicker
 						name="accent"
-                        label="Accent"
+						label="Accent"
 						bind:hex={boundAccent}
 						--cp-border-color="#fff"
 						--cp-input-color="#333"
@@ -84,7 +85,7 @@
 					/>
 					<ColorPicker
 						name="primary"
-                        label="Primary"
+						label="Primary"
 						bind:hex={boundPrimary}
 						--cp-border-color="#fff"
 						--cp-input-color="#333"
@@ -92,7 +93,7 @@
 					/>
 					<ColorPicker
 						name="secondary"
-                        label="Secondary"
+						label="Secondary"
 						bind:hex={boundSecond}
 						--cp-border-color="#fff"
 						--cp-input-color="#333"
@@ -100,14 +101,14 @@
 					/>
 					<ColorPicker
 						name="tertiary"
-                        label="Tertiary"
+						label="Tertiary"
 						bind:hex={boundTertiary}
 						--cp-border-color="#fff"
 						--cp-input-color="#333"
 						--cp-bg-color="#333"
 					/>
 				</div>
-                <button style="margin-top: 8px;" type="submit" class="button">Submit Colorway</button>
+				<button type="submit" class="button">Submit Colorway</button>
 			</form>
 			<!-- <h3 style="margin: 0;">Import type (if any)</h3>
                 <div style="display: flex; gap: .75rem;">
@@ -125,13 +126,24 @@
                     }}> Automatically Created</label>
                 </div> -->
 		{:else if checked == 'source'}
-			<TextInput
-				title="Colorway Source Name"
-                name="colorway-source"
-				value={colorwaySourceName}
-				onInput={(e) => (colorwaySourceName = e.value)}
-				placeholder="Give your colorway source a name"
-			/>
+			<form action="?/colorwaySource" method="post" use:enhance enctype="multipart/form-data">
+				<TextInput
+					title="Colorway Source Name"
+					name="colorway-source"
+					bind:value={colorwaySourceName}
+					placeholder="Give your colorway source a name"
+					required
+				/>
+				<div class="button-wrap">
+					<label for="source" class="button">{filename ? `Selected Source File: ${filename}` : "Upload Source File"}</label>
+					<input type="file" name="source" id="source" accept="application/json" required on:input={(e) => {
+                        if(e.target.files.length) {
+                            filename = e.target.files[0].name;
+                        }
+                    }} />
+				</div>
+				<button type="submit" class="button">Submit Colorway</button>
+			</form>
 		{/if}
 	</div>
 </div>
@@ -141,6 +153,32 @@
 </svelte:head>
 
 <style lang="scss">
+	.button-wrap {
+        width: 100%;
+		position: relative;
+		& > input[type='file'] {
+			position: absolute;
+			color: transparent;
+			z-index: -1;
+			top: 10px;
+			left: 8px;
+            opacity: 0;
+            pointer-events: none;
+		}
+        & > .button {
+            width: fit-content;
+            display: flex;
+        }
+	}
+	form {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		align-items: start;
+		& > :global(input[type='text']) {
+			width: 100%;
+		}
+	}
 	.profile-wrapper {
 		width: 100%;
 		height: 100%;
