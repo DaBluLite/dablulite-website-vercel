@@ -13,7 +13,7 @@ export const load: PageServerLoad = async ({locals, url}) => {
     return {};
 };
 
-const wc = new WebhookClient({id: "1264242544196325460", token: "mC6STFHWk9R5-GXt1ia-wEDkjntNT_hHXLsny9iTBsMoTxEpV8tOQ1o08BWFry6MGy4j"});
+const wc = new WebhookClient({ id: import.meta.env.VITE_DISCORD_WEBHOOK_ID, token: import.meta.env.VITE_DISCORD_WEBHOOK_TOKEN });
 
 export const actions = {
     colorway: async (
