@@ -5,9 +5,11 @@
 
 	import TextInput from "./TextInput.svelte";
 	import { showCyanStudio } from "./main";
+    import pageBg from "$lib/images/page-bg.jpg";
+
     let cyanStudioTab = 'settings';
 
-    let backImg = 'https://dablulite.github.io/b2e7544e927e0a5d7b1b.jpg';
+    let backImg = pageBg;
 	let accentColor = '#009f88';
 	let secondLayerColor = 'rgb(0 0 0/60%)';
 	let primary = 'rgb(0 0 0/60%)';
@@ -127,7 +129,7 @@
                     title="Background Image"
                     placeholder="Enter a valid image URL..."
                     bind:value={backImg}
-                    onInput={() =>
+                    on:input={() =>
                         document.body.style.setProperty('--cyan-background-img', 'url("' + backImg + '")')}
                 />
                 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -150,9 +152,9 @@
                         on:click={() => {
                             document.body.style.setProperty(
                                 '--cyan-background-img',
-                                'url("https://dablulite.github.io/b2e7544e927e0a5d7b1b.jpg")'
+                                `url("${pageBg}")`
                             );
-                            backImg = 'https://dablulite.github.io/b2e7544e927e0a5d7b1b.jpg';
+                            backImg = pageBg;
                         }}
                     >
                         Use Website's's BG

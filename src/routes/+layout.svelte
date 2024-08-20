@@ -9,6 +9,12 @@
 
 	import 'bootstrap-icons/font/bootstrap-icons.scss';
 	import CyanStudio from './CyanStudio.svelte';
+	import pageBg from "$lib/images/page-bg.jpg";
+	import { onMount } from 'svelte';
+	
+	onMount(() => {
+		document.documentElement.style.setProperty('--cyan-background-img', `url("${pageBg}")`);
+	})
 
 	inject();
 </script>
@@ -17,6 +23,24 @@
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-missing-attribute -->
 <div style="display: flex; flex-direction: column; width: 100%; height: 100%;">
+	{#if $page.url.pathname.startsWith("/projectcolorway/colorish")}
+	<style lang="scss">
+		body {
+    background: #090909;
+}
+.nav {
+    color: #FFFFFF !important;
+}
+.main {
+    margin: 0 !important;
+    border-radius: 0 !important;
+    background: none !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+    width: 100% !important;
+}
+	</style>
+	{/if}
 	<div class="nav">
 		<a
 			href="/"
@@ -136,6 +160,11 @@
 				>
 				<li class="ver-sep" />
 				<a
+					href="/projectcolorway/colorish"
+					class={$page.url.pathname.startsWith('/projectcolorway/colorish') ? 'active' : ''}
+					>Colorish</a
+				>
+				<a
 					href="/projectcolorway/sources"
 					class={$page.url.pathname.startsWith('/projectcolorway/sources') ? 'active' : ''}
 					>Colorway Sources</a
@@ -169,6 +198,7 @@
 		<slot />
 	</div>
 </div>
+
 {#if $showCyanStudio === true}
 	<CyanStudio />
 {/if}

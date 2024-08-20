@@ -13,7 +13,7 @@ export const load: PageServerLoad = async ({locals, url}) => {
     return {};
 };
 
-const wc = new WebhookClient({ id: import.meta.env.VITE_DISCORD_WEBHOOK_ID, token: import.meta.env.VITE_DISCORD_WEBHOOK_TOKEN });
+const wc = new WebhookClient({id: import.meta.env.VITE_DISCORD_WEBHOOK_ID, token: import.meta.env.VITE_DISCORD_WEBHOOK_TOKEN});
 
 export const actions = {
     colorway: async (
@@ -36,14 +36,14 @@ export const actions = {
         const colorStr = btoa(`${accent},${primary},${secondary},${tertiary}`);
 
         function hexToRgb(hex: string) {
-          var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-          return [
-            parseInt(result![1], 16),
-            parseInt(result![2], 16),
-            parseInt(result![3], 16)
-          ];
+            var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return [
+                parseInt(result ![1], 16),
+                parseInt(result ![2], 16),
+                parseInt(result ![3], 16)
+            ];
         }
-        
+
 
         wc.send({
             content: userMention(session !.user.image ?. split("/")[4]!),
@@ -86,9 +86,9 @@ export const actions = {
 
         const fileStream = data.get('source');
 
-        const file = new AttachmentBuilder(fileStream !.stream(), {name: sourceFilename});
+        const file = new AttachmentBuilder(fileStream?.stream(), {name: sourceFilename});
 
-        const colorways = JSON.parse(await fileStream !.text()).colorways.length;
+        const colorways = JSON.parse(await fileStream?.text()).colorways.length;
 
         wc.send({
             content: userMention(session !.user.image ?. split("/")[4]!),

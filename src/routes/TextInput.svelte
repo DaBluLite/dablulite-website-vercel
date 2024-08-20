@@ -1,13 +1,16 @@
 <script lang="ts">
+	import { createEventDispatcher } from "svelte";
+
     export let title: string,
         placeholder: string = "Enter text...",
         value: string,
-        name: string,
-        required: boolean
+        required: boolean = false;
+
+    const dispatch = createEventDispatcher();
 </script>
 
 <h4 style="margin-bottom: 0;">{title}:</h4>
-<input type="text" class="text-input" name={name} placeholder={placeholder}  bind:value={value} required={required}/>
+<input type="text" class="text-input" placeholder={placeholder}  bind:value={value} required={required} on:input={e => dispatch("input", e)} />
 
 <style lang="scss">
     .text-input {
