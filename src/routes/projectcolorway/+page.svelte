@@ -18,6 +18,9 @@
             <div class="project">
                 <a href="https://github.com/DaBluLite/gh-desktop" class="white-anchor">Github Desktop</a>: An Electron-based desktop app for Github, writtend in JSX (Non-react) and TS
             </div>
+            <div class="project">
+                <a href="/projectcolorway/generator" class="white-anchor">Colorway CSS generator</a>: Colorway CSS generator for known apps
+            </div>
         </div>
         <h3 style="margin-bottom: 0;">Useful Links:</h3>
         <div class="project-list">
