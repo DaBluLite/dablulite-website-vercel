@@ -1,6 +1,9 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
 	import ColorPicker from 'svelte-awesome-color-picker';
+	import { _sources } from '../../+server';
+	import { colorToHex } from '$lib/utils';
 
 	let boundAccent = '#5865f2';
 	let boundSecond = '#2b2d31';
@@ -8,6 +11,45 @@
 	let boundTertiary = '#1e1f22';
 
 	let app = "discord";
+
+	let colorwayData: SourceObject[] = [];
+
+	onMount(async () => {
+		const onlineSources: { name: string; url: string }[] = [{
+			name: "Project Colorway",
+			url: "https://raw.githubusercontent.com/ProjectColorway/ProjectColorway/master/index.json"
+		}, ..._sources.sources];
+
+		const responses: Response[] = await Promise.all(
+			onlineSources.map(({ url }: { url: string }) =>
+				fetch(url)
+			)
+		);
+
+		colorwayData = (await Promise.all(responses
+				.map((res, i) => ({
+					response: res,
+					name: onlineSources[i].name,
+				}))
+				.map((res: { response: Response; name: string }) =>
+					res.response
+						.json()
+						.then((dt) => ({
+							colorways: dt.colorways as Colorway[],
+							source: res.name,
+							type: "online" as SourceType,
+						}))
+						.catch(() => ({
+							colorways: [] as Colorway[],
+							source: res.name,
+							type: "online" as SourceType,
+						}))
+				))) as {
+			type: SourceType;
+			source: string;
+			colorways: Colorway[];
+		}[];
+	})
 </script>
 
 <svelte:head>
@@ -26,6 +68,7 @@
 						--cp-border-color="#fff"
 						--cp-input-color="#333"
 						--cp-bg-color="#333"
+						isAlpha={false}
 					/>
 					<ColorPicker
 						name="primary"
@@ -34,6 +77,7 @@
 						--cp-border-color="#fff"
 						--cp-input-color="#333"
 						--cp-bg-color="#333"
+						isAlpha={false}
 					/>
 					<ColorPicker
 						name="secondary"
@@ -42,6 +86,7 @@
 						--cp-border-color="#fff"
 						--cp-input-color="#333"
 						--cp-bg-color="#333"
+						isAlpha={false}
 					/>
 					<ColorPicker
 						name="tertiary"
@@ -50,7 +95,56 @@
 						--cp-border-color="#fff"
 						--cp-input-color="#333"
 						--cp-bg-color="#333"
+						isAlpha={false}
 					/>
+				</div>
+				<div class="selector">
+					{#each colorwayData as { colorways }}
+						<!-- svelte-ignore a11y-no-static-element-interactions -->
+						{#each colorways as color}
+							<!-- svelte-ignore a11y-click-events-have-key-events -->
+							<div
+								class="button"
+								on:click={() => {
+									(color.colors || ["accent", "primary", "secondary", "tertiary"]).forEach((colorStr) => {
+										switch(colorStr) {
+											case "accent":
+												boundAccent = "#" + colorToHex(color[colorStr]);
+												return;
+											case "primary":
+												boundPrimary = "#" + colorToHex(color[colorStr]);
+												return;
+											case "secondary":
+												boundSecond = "#" + colorToHex(color[colorStr]);
+												return;
+											case "tertiary":
+												boundTertiary = "#" + colorToHex(color[colorStr]);
+												return;
+										}
+									})
+								}}
+							>
+								<div class="colorwayColors">
+									{#if !color.isGradient}
+										{#each (color.colors || ["accent", "primary", "secondary", "tertiary"]) as colorStr}
+											<div
+												class="color"
+												style={`background-color: #${colorToHex(
+													color[colorStr]
+												)}`}
+											/>
+										{/each}
+									{:else}
+										<div
+											class="color"
+											style={`background: linear-gradient(${color.linearGradient})`}
+										/>
+									{/if}
+								</div>
+								<span class="label">{color.name}</span>
+							</div>
+						{/each}
+					{/each}
 				</div>
 				<select name="" id="" class="button" style="border: none;" bind:value={app}>
 					<option value="discord">Discord</option>
@@ -82,5 +176,56 @@
 		justify-content: center;
 		gap: 8px;
 		display: flex;
+	}
+	.selector {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		width: 100%;
+		max-height: 400px;
+		overflow: hidden auto;
+		scrollbar-width: thin !important;
+		padding: 0 8px;
+		margin-left: -8px;
+		& > .button {
+			justify-content: start;
+			width: 100%;
+			flex-shrink: 0;
+			box-sizing: border-box;
+			min-height: 44px;
+			align-items: center;
+			gap: 0;
+			padding: 0 8px;
+			& .label {
+				margin-right: auto;
+				margin-left: 0.5rem;
+			}
+			& > .colorwayColors {
+				flex-shrink: 0;
+				display: flex;
+				flex-flow: wrap;
+				flex-direction: row;
+				overflow: hidden;
+				border-radius: 50%;
+				width: 30px;
+				height: 30px;
+				box-shadow: 0 0 0 1.5px #a6a6a6;
+				box-sizing: border-box;
+				& > .color {
+					width: 50%;
+					height: 50%;
+				}
+				&:not(:has(> .color:nth-child(2))) > .color {
+					width: 100%;
+					height: 100%;
+				}
+				&:not(:has(> .color:nth-child(3))) > .color {
+					height: 100%;
+				}
+				&:not(:has(> .color:nth-child(4))) > .color:nth-child(3) {
+					width: 100%;
+				}
+			}
+		}
 	}
 </style>

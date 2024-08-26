@@ -174,6 +174,11 @@
 					class={$page.url.pathname.startsWith('/protected/projectcolorway/submit') ? 'active' : ''}
 					>Submit Colorways</a
 				>
+				<a
+					href="/projectcolorway/generator"
+					class={$page.url.pathname.startsWith('/projectcolorway/generator') ? 'active' : ''}
+					>CSS Import Generator</a
+				>
 			</div>
 		</div>
 		<div on:click={() => showCyanStudio.set(true)}>Cyan Studio</div>

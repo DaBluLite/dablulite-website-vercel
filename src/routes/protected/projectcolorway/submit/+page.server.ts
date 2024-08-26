@@ -1,24 +1,43 @@
-import {redirect} from '@sveltejs/kit';
+import {error, redirect} from '@sveltejs/kit';
 import type {PageServerLoad}
 from './$types';
 import {WebhookClient, AttachmentBuilder, userMention} from "discord.js";
+import { SECRETKEY_SERVER_ONLY } from "$env/static/private";
 
-export const load: PageServerLoad = async ({locals, url}) => {
+import { RateLimiter } from 'sveltekit-rate-limiter/server';
+
+const limiter = new RateLimiter({
+  // A rate is defined as [number, unit]
+  IP: [10, 'm'], // IP address limiter
+  IPUA: [5, 'm'], // IP + User Agent limiter
+  cookie: {
+    name: 'limiterid', // Unique cookie name for this limiter
+    secret: SECRETKEY_SERVER_ONLY, // Use $env/static/private
+    rate: [5, 'm'],
+    preflight: true // Require preflight call (see load function)
+  }
+});
+
+export const load: PageServerLoad = async (event) => {
+    const {locals, url} = event;
     const session = await locals.auth();
     if (! session ?. user) 
         throw redirect(303, '/authpage?redirect=' + url.pathname);
     
 
 
+    await limiter.cookieLimiter?.preflight(event);
     return {};
 };
 
 const wc = new WebhookClient({id: import.meta.env.VITE_DISCORD_WEBHOOK_ID, token: import.meta.env.VITE_DISCORD_WEBHOOK_TOKEN});
 
 export const actions = {
-    colorway: async (
-        {request, locals}
-    ) => {
+    colorway: async (event) => {
+        if (await limiter.isLimited(event)) throw error(429);
+
+        const {request, locals} = event;
+
         const session = await locals.auth();
 
         const data = await request.formData();
@@ -69,9 +88,11 @@ export const actions = {
             ]
         })
     },
-    colorwaySource: async (
-        {locals, request}
-    ) => {
+    colorwaySource: async (event) => {
+        if (await limiter.isLimited(event)) throw error(429);
+
+        const {request, locals} = event;
+
         const session = await locals.auth();
         const data = await request.formData();
 

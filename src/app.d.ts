@@ -13,12 +13,14 @@ declare global {
         authorID: string,
         colors?: string[],
         isGradient?: boolean,
-        sourceType?: "online" | "offline" | "temporary" | null,
+        sourceType: SourceType,
         source?: string,
         linearGradient?: string,
         preset?: string,
         creatorVersion?: string;
     }
+
+    type SourceType = "online" | "offline" | "temporary" | "complication:online" | "complication:offline";
 
     interface ColorPickerProps {
         color: number;
@@ -30,7 +32,7 @@ declare global {
 
     interface ColorwayObject {
         id: string | null,
-        sourceType: "online" | "offline" | "temporary" | null,
+        sourceType: SourceType,
         source: string | null | undefined,
         colors?: {
             accent?: string | undefined,
@@ -41,7 +43,7 @@ declare global {
     }
 
     interface SourceObject {
-        type: "online" | "offline" | "temporary",
+        type: SourceType,
         source: string,
         colorways: Colorway[];
     }

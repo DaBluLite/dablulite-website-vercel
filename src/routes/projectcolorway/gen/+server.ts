@@ -724,8 +724,24 @@ export const GET: RequestHandler = async ({url}) => {
         --bgColor-inset: #${primaryColor} !important;
         --bgColor-default: #${secondaryColor} !important;
         --bgColor-muted: #${tertiaryColor} !important;
+        --button-default-bgColor-rest: hsl(${
+            HexToHSL("#" + tertiaryColor)[0]
+        } ${
+            HexToHSL("#" + tertiaryColor)[1]
+        }% ${
+            HexToHSL("#" + tertiaryColor)[2] + 5
+        }%) !important;
+        --button-default-bgColor-hover: hsl(${
+            HexToHSL("#" + tertiaryColor)[0]
+        } ${
+            HexToHSL("#" + tertiaryColor)[1]
+        }% ${
+            HexToHSL("#" + tertiaryColor)[2] + 15
+        }%) !important;
     }
-    .octicon-mark-github {
+    .octicon-mark-github,
+    .dpowyu,
+    .csCkZA {
         color: #${accentColor} !important;
     }
     .klBOTR {
@@ -734,6 +750,10 @@ export const GET: RequestHandler = async ({url}) => {
     .hSXtjz,
     .jMdYTc {
         background-color: #${secondaryColor} !important;
+    }
+    .bfhvai .PRIVATE_TreeView-item[aria-current="true"] > .PRIVATE_TreeView-item-container::after,
+    :is(.UnderlineNav-item.selected, .UnderlineNav-item[role="tab"][aria-selected="true"], .UnderlineNav-item[aria-current]:not([aria-current="false"]))::after {
+        background: #${accentColor} !important;
     }`
             case "solana":
                 return `:root:root {
