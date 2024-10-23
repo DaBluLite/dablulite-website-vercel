@@ -19,12 +19,22 @@ export const _sources = {
     ]
 }
 
-export function GET() {
-	return json(_sources, {
-        headers: {
-            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': '*',
-          }
-    });
+export function GET({ url: { searchParams } }) {
+    if(searchParams.get("q")) {
+        return json({ sources: _sources.sources.filter(source => source.name.includes(searchParams.get("q") as string) || source.description.includes(searchParams.get("q") as string)) }, {
+            headers: {
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': '*',
+              }
+        });
+    } else {
+        return json(_sources, {
+            headers: {
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': '*',
+              }
+        });
+    }
 }
