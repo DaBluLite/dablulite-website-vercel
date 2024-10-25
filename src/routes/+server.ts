@@ -3,6 +3,13 @@ import { json } from '@sveltejs/kit';
 export const _sources = {
     sources: [
         {
+            name: "Project Colorway",
+            description: "The official colorway source for Project Colorway apps to get you started",
+            id: "project-colorway",
+            authorGh: "ProjectColorway",
+            url: "https://raw.githubusercontent.com/ProjectColorway/ProjectColorway/master/index.json"
+        },
+        {
             name: "DaBluLite's Personal Colorways",
             description: "A list of my personal colorways, that's all",
             id: "dablulites-personal-colorways",
