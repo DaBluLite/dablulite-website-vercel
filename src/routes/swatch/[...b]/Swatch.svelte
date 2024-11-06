@@ -5,11 +5,13 @@
 	export let tertiary = '#1e1f22';
 </script>
 
-<div class="swatch">
-    <div class="color" style="background-color: {accent};"/>
-    <div class="color" style="background-color: {primary};"/>
-    <div class="color" style="background-color: {second};"/>
-    <div class="color" style="background-color: {tertiary};"/>
+<div class="swatchContainer">
+	<div class="swatch">
+		<div class="color" style="background-color: {accent};"/>
+		<div class="color" style="background-color: {primary};"/>
+		<div class="color" style="background-color: {second};"/>
+		<div class="color" style="background-color: {tertiary};"/>
+	</div>
 </div>
 
 <style lang="scss">
@@ -28,5 +30,8 @@
 			height: 50%;
 			display: flex;
         }
+	}
+	.swatchContainer {
+		padding: 8px;
 	}
 </style>

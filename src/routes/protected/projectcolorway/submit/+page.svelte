@@ -68,12 +68,10 @@
 			<form method="post" use:enhance action="?/colorway">
 				<TextInput
 					title="Colorway Name"
-					value={colorwayName}
-					on:input={({ detail }) => {
-						colorwayName = detail
-					}}
+					bind:value={colorwayName}
 					placeholder="Give your colorway a name"
 					required
+					name="colorway-name"
 				/>
 				<h3 style="margin: 0;">Colors</h3>
 				<div style="display: flex; gap: .75rem;">

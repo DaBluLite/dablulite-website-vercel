@@ -4,13 +4,14 @@
     export let title: string,
         placeholder: string = "Enter text...",
         value: string,
-        required: boolean = false;
+        required: boolean = false,
+        name: string = "";
 
     const dispatch = createEventDispatcher();
 </script>
 
 <h4 style="margin-bottom: 0;">{title}:</h4>
-<input type="text" class="text-input" placeholder={placeholder}  bind:value={value} required={required} on:input={({ currentTarget: { value } }) => dispatch("input", value)} />
+<input type="text" class="text-input" placeholder={placeholder}  bind:value={value} required={required} name={name} on:input={({ currentTarget: { value } }) => dispatch("input", value)} />
 
 <style lang="scss">
     .text-input {
