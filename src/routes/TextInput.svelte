@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { createEventDispatcher } from "svelte";
 
-    export let title: string,
+    export let title: string = "",
         placeholder: string = "Enter text...",
         value: string,
         required: boolean = false,
@@ -10,7 +10,9 @@
     const dispatch = createEventDispatcher();
 </script>
 
+{#if title}
 <h4 style="margin-bottom: 0;">{title}:</h4>
+{/if}
 <input type="text" class="text-input" placeholder={placeholder}  bind:value={value} required={required} name={name} on:input={({ currentTarget: { value } }) => dispatch("input", value)} />
 
 <style lang="scss">

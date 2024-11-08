@@ -160,6 +160,11 @@
 				>
 				<li class="ver-sep" />
 				<a
+					href="/projectcolorway/discordcolorways"
+					class={$page.url.pathname.startsWith('/projectcolorway/discordcolorways') ? 'active' : ''}
+					>DiscordColorways</a
+				>
+				<a
 					href="/projectcolorway/colorish"
 					class={$page.url.pathname.startsWith('/projectcolorway/colorish') ? 'active' : ''}
 					>Colorish</a

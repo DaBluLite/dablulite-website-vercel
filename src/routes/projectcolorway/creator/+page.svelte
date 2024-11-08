@@ -308,7 +308,7 @@ const BrandLightDiffs = {
 
 <div class="profile-wrapper">
     <div class="profile-details-container">
-        <TextInput title="Name" placeholder="Give your Colorway a name" bind:value={colorway.name} onInput={() => {}}/>
+        <TextInput title="Name" placeholder="Give your Colorway a name" bind:value={colorway.name}/>
         {colorway.name}
     </div>
 </div>
