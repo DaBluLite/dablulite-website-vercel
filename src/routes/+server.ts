@@ -26,8 +26,18 @@ export const _sources = {
     ]
 }
 
-export function GET({ url: { searchParams } }) {
-    if(searchParams.get("q")) {
+export async function GET({ url: { searchParams } }) {
+    if(searchParams.get("id") && _sources.sources.find(s => s.id === searchParams.get("id"))) {
+        const res = await fetch(_sources.sources.find(s => s.id === searchParams.get("id"))?.url as string);
+        const data = await res.json();
+        return json(data["colorways"], {
+            headers: {
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': '*',
+              }
+        });
+    } else if(searchParams.get("q")) {
         return json({ sources: _sources.sources.filter(source => source.name.toLowerCase().includes(searchParams.get("q")?.toLowerCase() as string) || source.description.toLowerCase().includes(searchParams.get("q") as string)) }, {
             headers: {
                 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
